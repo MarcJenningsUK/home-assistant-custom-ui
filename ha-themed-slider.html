@@ -38,6 +38,8 @@ Polymer({
   ready: function () {
     // If value was above 100 it wouldn't propagate to paper-slider while that had max=100
     // Force-change the value so that paper-slider will update itself.
+    console.log('hts ready');
+    console.log('value was ' + this.value);
     this.value = this.value + 1;
     this.value = this.value - 1;
     // Propagate the themed value upwards.
@@ -113,10 +115,13 @@ Polymer({
   },
 
   valueChanged: function (ev) {
+    console.log('hts valueChanged');
     if (!this._enabledThemedReportWhenNotChanged && this.value === ev.target.value) {
       ev.stopPropagation();
+      console.log('stop propagation');
       return;
     }
+    console.log('setting to ' + ev.target.value);
     this.value = ev.target.value;
   },
 });

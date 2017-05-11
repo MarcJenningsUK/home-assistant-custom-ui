@@ -217,30 +217,41 @@ Polymer({
   },
 
   sliderChanged: function (ev) {
+    console.log('scws: sliderChanged');
     var value = parseInt(ev.target.value, 10);
+    console.log('value ' + value);
     var param = { entity_id: this.stateObj.entity_id };
     if (isNaN(value)) return;
     var target = this.$$('#slider');
     if (ev.target !== target) {
       // No Shadow DOM - we have access to original target.
       target = ev.target;
+      console.log('Original target');
     } else if (ev.path) {
       target = ev.path[0];
+      console.log('Using path');
     } else if (ev.composedPath) {
       target = ev.composedPath()[0];
+      console.log('Using composedPath');
     }
     if (value === 0 || (value <= target.min && !this.disableOffWhenMin)) {
+      console.log('calling ' + this.domain + '.' + this.serviceMin + ' for ' + this.stateObj.entity_id);
       this.hass.callService(this.domain, this.serviceMin, param);
     } else {
+      console.log('calling ' + this.domain + '.' + this.serviceMax + ' for ' + this.stateObj.entity_id);
+      console.log('Using ' + (this.setValueName || this.valueName));
       param[this.setValueName || this.valueName] = value;
       this.hass.callService(this.domain, this.serviceMax, param);
     }
   },
 
   stateObjChanged: function (stateObj) {
+    console.log('scws: stateObjChanged');
     if (this.isOn(stateObj)) {
+      console.log('isOn ' + stateObj.attributes[this.valueName]);
       this.sliderValue = stateObj.attributes[this.valueName];
     } else {
+      console.log('isOff');
       this.sliderValue = 0;
     }
     if (stateObj) {
