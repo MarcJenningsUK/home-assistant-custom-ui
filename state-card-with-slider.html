@@ -247,6 +247,7 @@ Polymer({
 
   stateObjChanged: function (stateObj) {
     console.log('scws: stateObjChanged');
+    console.log('' + stateObj.entity_id + ': min=' + this.min + ' max=' + this.max);
     if (this.isOn(stateObj)) {
       console.log('isOn ' + stateObj.attributes[this.valueName]);
       this.sliderValue = stateObj.attributes[this.valueName];

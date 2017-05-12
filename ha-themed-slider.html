@@ -40,6 +40,7 @@ Polymer({
     // Force-change the value so that paper-slider will update itself.
     console.log('hts ready');
     console.log('value was ' + this.value);
+    console.log('min=' + this.min + ' max=' + this.max);
     this.value = this.value + 1;
     this.value = this.value - 1;
     // Propagate the themed value upwards.
@@ -94,11 +95,14 @@ Polymer({
   },
 
   _computeAttribute: function (theme, attr, def) {
+    console.log('Getting attribute ' + attr);
     if (theme) {
       if (attr in theme) {
+        console.log('returning ' + theme[attr] + ' from theme');
         return theme[attr];
       }
     }
+    console.log('returning default value of ' + def')
     return def;
   },
 
